@@ -1,0 +1,40 @@
+bin/
+!./bin/.gitinclude
+*.gitinclude
+data/*
+
+# CMake build directories
+/build/
+/CMakeFiles/
+/CMakeCache.txt
+/CMakeScripts/
+/CMakeScripts/*.cmake
+/CMakeTmp/
+/Testing/
+cmake-build-debug/
+build-debug/
+
+# Compiled Object files
+*.o
+*.obj
+
+# Compiled Dynamic libraries
+*.so
+*.dll
+*.dylib
+
+# Compiled Static libraries
+*.a
+*.lib
+
+# Visual Studio Code specific
+.vscode/
+
+# JetBrains IDEs specific
+.idea/
+*.iml
+
+# macOS specific
+.DS_Store
+
+data/
