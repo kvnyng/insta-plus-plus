@@ -19,7 +19,6 @@ build-debug/
 *.obj
 
 # Compiled Dynamic libraries
-*.so
 *.dll
 *.dylib
 

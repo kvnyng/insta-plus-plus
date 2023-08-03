@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.22)
-project(oners_demo)
+project(insta-plus-plus)
 
 set(CMAKE_CXX_STANDARD 17)
 set(PROJECT_SOURCE_DIR "src")
 set(CMAKE_LIBRARY_PATH "include")
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
-
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/src/examples")
 link_directories("${CMAKE_CURRENT_SOURCE_DIR}/lib")
 
 # add_subdirectory("${CMAKE_LIBRARY_PATH}" "${PROJECT_SOURCE_DIR}/build")
