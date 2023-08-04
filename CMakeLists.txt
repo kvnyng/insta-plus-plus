@@ -6,13 +6,13 @@ set(PROJECT_SOURCE_DIR "src")
 set(CMAKE_LIBRARY_PATH "include")
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
-add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/src/examples")
+
 link_directories("${CMAKE_CURRENT_SOURCE_DIR}/lib")
 
 # add_subdirectory("${CMAKE_LIBRARY_PATH}" "${PROJECT_SOURCE_DIR}/build")
 message(STATUS "${CMAKE_LIBRARY_PATH}")
-add_executable(main main.cpp)
-target_link_libraries(main PRIVATE CameraSDK)
+add_executable(main src/playground/signal_slot.cpp)
+target_link_libraries(main PRIVATE CameraSDK boost)
 #add_executable(camera_test examples/cameraSDKTest.cc)
 #add_executable(connect examples/connect.cc)
 #add_executable(recording examples/recording.cc)

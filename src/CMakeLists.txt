@@ -6,7 +6,8 @@ set(PROJECT_SOURCE_DIR "src")
 
 include_directories(../include)
 
+find_package(Boost)
+include_directories( ${Boost_INCLUDE_DIR} )
 link_directories(../lib)
-
-add_executable(p_stream programatic_stream.cc)
-target_link_libraries(p_stream CameraSDK udev)
+add_executable(CameraController CameraController.h CameraController.cpp)
+target_link_libraries(CameraController LINK_PUBLIC ${Boost_LIBRARIES} CameraSDK udev)
