@@ -33,3 +33,6 @@ Each folder has its own cmake file. Load the cmake file into CLion and execute. 
 When compiling any code using the `CameraSDK` library, ensure `Run with root privilages` is turned on. The CameraSDK requires sudo to operate due to an IO permissions issue. If this is not checked, then any script searching to connect will return `"No camera found"`.
 
 ![](docs/images/run-with-root-privileges.png)
+
+### Dependencies
+// ADD IN STUFF ABOUT OmniCV once it works!

@@ -9,11 +9,50 @@
 #include "camera/device_discovery.h"
 #include <iostream>
 #include <boost/signals2.hpp>
+#include <ostream>
 using namespace boost;
+using namespace std;
+
+struct Audio {
+    const uint8_t* data;
+    size_t size;
+    int64_t timestamp;
+
+};
+
+struct Video {
+    const uint8_t* data;
+    size_t size;
+    int64_t timestamp;
+    uint8_t streamType;
+    int streamIndex;
+
+};
+
+struct Gyro {
+    std::vector<ins_camera::GyroData> data;
+};
+
+struct Exposure {
+    ins_camera::ExposureData data;
+
+};
+
+struct Frame {
+    Audio audio;
+    Video video;
+    Gyro gyro;
+    Exposure exposure;
+};
+
+//ostream& operator<<(ostream& os, const Frame& frame) {
+////    return os << "Audio Data " << frame.audio.data << endl;
+//}
 
 class StreamDelegate : public ins_camera::StreamDelegate
 {
 public:
+//    Frame frame;
     StreamDelegate()
     {
 //        boost::signals2::signal<void (uint8_t, size_t, int64_t, uint8_t)> audio_sig;
@@ -30,22 +69,33 @@ public:
     {
         // Currently does not save audio data
 //        audio_sig()
-        std::cout << "Audio data received!" << timestamp << std::endl;
+//        std::cout << "Audio data received!" << timestamp << std::endl;
+//        std::cout << "Status is:" << status << std::endl;
+//            frame.audio.data = data;
+//            frame.audio.size = size;
+//            frame.audio.timestamp = timestamp;
     }
 
     void OnVideoData(const uint8_t *data, size_t size, int64_t timestamp, uint8_t streamType, int stream_index) override
     {
         std::cout << "Frame: " << size << " | " << timestamp << std::endl;
 //        fwrite(data, sizeof(uint8_t), size, stream_file);
+//            frame.video.data = data;
+//            frame.video.size = size;
+//            frame.video.timestamp = timestamp;
+//            frame.video.streamType = streamType;
+//            frame.video.streamIndex = stream_index;
     }
 
     void OnGyroData(const std::vector<ins_camera::GyroData> &data) override
     {
+//        frame.gyro.data = data;
         // Populate later
     }
 
     void OnExposureData(const ins_camera::ExposureData &data) override
     {
+//        frame.exposure.data = data;
         // Populate later
     }
 
@@ -56,8 +106,8 @@ private:
 
 class CameraController {
     std::shared_ptr<ins_camera::Camera> camera;
-    std::shared_ptr<ins_camera::StreamDelegate> streamDelegate;
 public:
+    std::shared_ptr<StreamDelegate> streamDelegate;
     bool streaming;                 // Whether camera is streaming or not. false is no stream. true is streaming
     bool connected;                 // Whether camera is connected to or not. false is no stream. true is streaming.
 
@@ -131,7 +181,10 @@ private:
 //        std::cout << "Exposure settings set" << std::endl;
 
         // Set stream delegate
-        camera->SetStreamDelegate(streamDelegate);
+        std::shared_ptr<ins_camera::StreamDelegate> stream = std::dynamic_pointer_cast<ins_camera::StreamDelegate>(streamDelegate);
+        camera->SetStreamDelegate(stream);
+//        camera->SetStreamDelegate(::make_shared<ins_camera::StreamDelegate>(internalStreamDelegate));
+//        camera->SetStreamDelegate(std::make_shared<ins_camera::StreamDelegate>(streamDelegate));
     }
 public:
     void startStream(){
@@ -163,7 +216,16 @@ public:
         streaming = false;
     }
 
+    void printFrame() {
+//        cout << "hello" << endl;
+//        cout << "Video size: " << streamDelegate.frame.video.size << endl;
+//        cout << "Audio size: " <<  streamDelegate.frame.audio.size << endl;
+//        cout << "Gyro data: " << streamDelegate.frame.gyro << endl;
+    }
 
+//    Frame returnFrame() {
+//        return streamDelegate.frame;
+//    }
 };
 
 
