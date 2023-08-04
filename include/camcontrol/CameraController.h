@@ -5,8 +5,8 @@
 #ifndef INSTA_PLUS_PLUS_CAMERA_CONTROLLER_H
 #define INSTA_PLUS_PLUS_CAMERA_CONTROLLER_H
 
-#include <camera/camera.h>
-#include <camera/device_discovery.h>
+#include "camera/camera.h"
+#include "camera/device_discovery.h"
 #include <iostream>
 #include <boost/signals2.hpp>
 using namespace boost;
@@ -108,7 +108,7 @@ public:
         camera->Close();
         connected = false;
     }
-
+private:
     void setup() {
         // In the future, add a setup file reader
 
@@ -133,7 +133,7 @@ public:
         // Set stream delegate
         camera->SetStreamDelegate(streamDelegate);
     }
-
+public:
     void startStream(){
         if (streaming) {
             return;

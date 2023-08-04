@@ -1,5 +1,5 @@
 # Examples
-Welcome to examples! Here are some code snippets that get at core aspects of the OneRS functionality.
+Welcome to insta360 examples! Here are some code snippets that get at core aspects of the OneRS functionality.
 
 ## `cameraSDKTest.cc`
 This is the test file that ships out of the box with the SDK. It's a CLI that allows you to perform numerous test (set exposure, camera parameters) as well as stream, download photos, etc.

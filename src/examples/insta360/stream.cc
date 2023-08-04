@@ -3,8 +3,8 @@
 
 // Execution command
 // sudo ./bin/stream
-#include <camera/camera.h>
-#include <camera/device_discovery.h>
+#include "camera/camera.h"
+#include "camera/device_discovery.h"
 #include <iostream>
 
 #include <chrono>

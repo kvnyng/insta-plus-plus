@@ -1,8 +1,8 @@
 // Quick test of the device discovery API. Pulled from Insta360 SDK README
 // https://github.com/Insta360Develop/CameraSDK-Cpp#discover-your-camera
 
-#include <camera/device_discovery.h>
-#include <camera/camera.h>
+#include "camera/device_discovery.h"
+#include "camera/camera.h"
 #include <iostream>
 
 int main()

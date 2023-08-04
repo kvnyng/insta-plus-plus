@@ -1,8 +1,8 @@
 ﻿#include <iostream>
 #include <thread>
-#include <camera/camera.h>
-#include <camera/photography_settings.h>
-#include <camera/device_discovery.h>
+#include "camera/camera.h"
+#include "camera/photography_settings.h"
+#include "camera/device_discovery.h"
 #include <regex>
 
 class TestStreamDelegate : public ins_camera::StreamDelegate {

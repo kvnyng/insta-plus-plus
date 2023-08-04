@@ -1,7 +1,7 @@
 // Example that will start a recording on the camera, and stop after 5 secs
 
-#include <camera/device_discovery.h>
-#include <camera/camera.h>
+#include "camera/device_discovery.h"
+#include "camera/camera.h"
 #include <iostream>
 
 #include <chrono>

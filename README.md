@@ -26,20 +26,10 @@ Install [libusbK](https://sourceforge.net/projects/libusbk/files/libusbK-release
 Use the command `lsusb` and check for a device with the manufacturing ID `0x2e1a`. If a coorsponding device shows up, then the computer recognizes the camera. Otherwise, revisit driver installation or camera setup.
 ![lsusb command output](docs/images/lsusb_example.png)
 
-### Dynamic Linking
-Add the `CameraSDK.so` library to system's dynamic linker.
-```bash
-sudo ldconfig ${FULL PATH TO /lib FOLDER}
-```
-
 ### Compiling Example
-```bash
-g++ example/main.cc -o exampleTest -I include/ -Llib/ -lCameraSDK -ludev
-```
+Each folder has its own cmake file. Load the cmake file into CLion and execute. All linking should be automatic. 
 
-### Running Examples
-All programs need to be run in `sudo` mode (because of IO?). Therefore, prepend `sudo` before running executables.
-```bash
-sudo ./exampleTest
-sudo ./example/CameraSDKTest
-```
+#### Notice:
+When compiling any code using the `CameraSDK` library, ensure `Run with root privilages` is turned on. The CameraSDK requires sudo to operate due to an IO permissions issue. If this is not checked, then any script searching to connect will return `"No camera found"`.
+
+![](docs/images/run-with-root-privileges.png)

@@ -4,8 +4,8 @@
 // Run command
 // sudo ./bin/settings
 
-#include <camera/camera.h>
-#include <camera/device_discovery.h>
+#include "camera/camera.h"
+#include "camera/device_discovery.h"
 #include <iostream>
 
 int main()

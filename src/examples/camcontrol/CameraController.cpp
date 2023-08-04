@@ -2,7 +2,7 @@
 // Created by kevinhy on 8/3/23.
 //
 
-#include "CameraController.h"
+#include "camcontrol/CameraController.h"
 #include <chrono>
 #include <thread>
 
@@ -11,5 +11,5 @@ int main() {
     controller.startStream();
     std::this_thread::sleep_for(std::chrono::seconds(10));
     controller.stopStream();
-    controller.close();`
+    controller.close();
 }
