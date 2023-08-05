@@ -52,13 +52,11 @@ struct Frame {
 class StreamDelegate : public ins_camera::StreamDelegate
 {
 public:
-//    Frame frame;
-    StreamDelegate()
+    StreamDelegate(Frame* frame)
     {
 //        boost::signals2::signal<void (uint8_t, size_t, int64_t, uint8_t)> audio_sig;
 
 //        stream_file = fopen("./data/video.h264", "wb");
-
     }
     ~StreamDelegate()
     {
@@ -71,35 +69,36 @@ public:
 //        audio_sig()
 //        std::cout << "Audio data received!" << timestamp << std::endl;
 //        std::cout << "Status is:" << status << std::endl;
-//            frame.audio.data = data;
-//            frame.audio.size = size;
-//            frame.audio.timestamp = timestamp;
+            frame.audio.data = data;
+            frame.audio.size = size;
+            frame.audio.timestamp = timestamp;
     }
 
     void OnVideoData(const uint8_t *data, size_t size, int64_t timestamp, uint8_t streamType, int stream_index) override
     {
-        std::cout << "Frame: " << size << " | " << timestamp << std::endl;
+//        std::cout << "Frame: " << size << " | " << timestamp << std::endl;
 //        fwrite(data, sizeof(uint8_t), size, stream_file);
-//            frame.video.data = data;
-//            frame.video.size = size;
-//            frame.video.timestamp = timestamp;
-//            frame.video.streamType = streamType;
-//            frame.video.streamIndex = stream_index;
+            frame.video.data = data;
+            frame.video.size = size;
+            frame.video.timestamp = timestamp;
+            frame.video.streamType = streamType;
+            frame.video.streamIndex = stream_index;
     }
 
     void OnGyroData(const std::vector<ins_camera::GyroData> &data) override
     {
-//        frame.gyro.data = data;
+        frame.gyro.data = data;
         // Populate later
     }
 
     void OnExposureData(const ins_camera::ExposureData &data) override
     {
-//        frame.exposure.data = data;
+        frame.exposure.data = data;
         // Populate later
     }
 
 private:
+    Frame* frame;
 //    FILE *stream_file;
     int64_t last_timestamp = 0;
 };
@@ -107,13 +106,15 @@ private:
 class CameraController {
     std::shared_ptr<ins_camera::Camera> camera;
 public:
-    std::shared_ptr<StreamDelegate> streamDelegate;
+    Frame frame;
+    StreamDelegate streamDelegate;
     bool streaming;                 // Whether camera is streaming or not. false is no stream. true is streaming
     bool connected;                 // Whether camera is connected to or not. false is no stream. true is streaming.
 
     CameraController() {
         open();
-        streamDelegate = std::make_shared<StreamDelegate>();
+        frame = Frame();
+        streamDelegate = StreamDelegate();
         streaming = false;
         connected = false;
         setup();
@@ -180,8 +181,9 @@ private:
         }
 //        std::cout << "Exposure settings set" << std::endl;
 
-        // Set stream delegate
-        std::shared_ptr<ins_camera::StreamDelegate> stream = std::dynamic_pointer_cast<ins_camera::StreamDelegate>(streamDelegate);
+        // Set stream delegateframe
+//        std::shared_ptr<ins_camera::StreamDelegate> stream = std::make_shared<ins_camera::StreamDelegate>(streamDelegate);
+        std::shared_ptr<ins_camera::StreamDelegate> stream = std::dynamic_pointer_cast<ins_camera::StreamDelegate>(std::make_shared<StreamDelegate>(streamDelegate));
         camera->SetStreamDelegate(stream);
 //        camera->SetStreamDelegate(::make_shared<ins_camera::StreamDelegate>(internalStreamDelegate));
 //        camera->SetStreamDelegate(std::make_shared<ins_camera::StreamDelegate>(streamDelegate));
@@ -216,12 +218,18 @@ public:
         streaming = false;
     }
 
-    void printFrame() {
-//        cout << "hello" << endl;
+    void returnFrame() {
+        std::shared_ptr<StreamDelegate> access = std::make_shared<StreamDelegate>(streamDelegate);
+        cout << "Video size: " << access->frame.video.size << endl;
+        cout << "Hello" << endl;
+    }
+//    Frame returnFrame() {
+////            return streamDelegate->frame
+////        cout << "hello" << endl;
 //        cout << "Video size: " << streamDelegate.frame.video.size << endl;
 //        cout << "Audio size: " <<  streamDelegate.frame.audio.size << endl;
-//        cout << "Gyro data: " << streamDelegate.frame.gyro << endl;
-    }
+////        cout << "Gyro data: " << streamDelegate.frame.gyro << endl;
+//    }
 
 //    Frame returnFrame() {
 //        return streamDelegate.frame;
